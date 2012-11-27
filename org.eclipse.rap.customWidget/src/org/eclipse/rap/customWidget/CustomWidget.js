@@ -16,6 +16,7 @@ rap.registerTypeHandler( "rap.myWidget", {
     text.onmousedown = function( ev ) {
       var newText = text.innerText + ", " + ev.button;
       text.innerText = newText;
+      rap.getRemoteObject( el ).set( "text", newText );
     };
     el.appendChild( text );
     rap.getObject( properties.parent ).append( el );

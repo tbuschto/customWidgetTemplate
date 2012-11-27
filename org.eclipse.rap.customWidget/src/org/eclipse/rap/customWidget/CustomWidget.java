@@ -1,7 +1,10 @@
 package org.eclipse.rap.customWidget;
 
+import java.util.Map;
+
 import org.eclipse.rap.rwt.internal.remote.RemoteObject;
 import org.eclipse.rap.rwt.internal.remote.RemoteObjectFactory;
+import org.eclipse.rap.rwt.internal.remote.RemoteOperationHandler;
 import org.eclipse.rap.rwt.lifecycle.WidgetUtil;
 import org.eclipse.swt.widgets.Composite;
 
@@ -16,6 +19,14 @@ public class CustomWidget extends Composite {
     ro = RemoteObjectFactory.createRemoteObject( "rap.myWidget" );
     ro.set( "parent", WidgetUtil.getId( this ) );
     ro.set( "text", text );
+    ro.setHandler( new RemoteOperationHandler(){
+      @Override
+      public void handleSet( Map<String, Object> properties ) {
+        if( properties.containsKey( "text" ) ) {
+          text = ( String )properties.get( "text" );
+        }
+      }
+    } );
   }
 
   public String getText() {
