@@ -1,4 +1,4 @@
-rwt.protocol.AdapterRegistry.add( "rap.myWidget", {
+rap.registerTypeHandler( "rap.myWidget", {
 
   factory : function( properties ) {
     console.log( "create" );
@@ -10,5 +10,3 @@ rwt.protocol.AdapterRegistry.add( "rap.myWidget", {
   }
 
 } );
-
-console.log( "registered" );
