@@ -8,10 +8,13 @@ import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.rap.rwt.resources.ResourceLoader;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 
 public class Demo implements IEntryPoint, ApplicationConfiguration {
@@ -22,8 +25,22 @@ public class Demo implements IEntryPoint, ApplicationConfiguration {
     shell.setLayout( new GridLayout( 1, false ) );
     shell.setText( "Custom Widget Template" );
 
-    CustomWidget widget = new CustomWidget( shell, SWT.BORDER );
+    final CustomWidget widget = new CustomWidget( shell, SWT.BORDER );
     widget.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+
+    final Text text = new Text( shell, SWT.BORDER );
+    text.setMessage( "Change text" );
+    GridData layoutData = new GridData();
+    layoutData.grabExcessHorizontalSpace = true;
+    layoutData.horizontalAlignment = SWT.FILL;
+    layoutData.heightHint = 30;
+    text.setLayoutData( layoutData );
+    text.addSelectionListener( new SelectionAdapter() {
+      public void widgetDefaultSelected( SelectionEvent e ) {
+        widget.setText( text.getText() );
+        text.setText( "" );
+      }
+    } );
 
     shell.setBounds( 50, 50, 300, 300 );
     shell.open();

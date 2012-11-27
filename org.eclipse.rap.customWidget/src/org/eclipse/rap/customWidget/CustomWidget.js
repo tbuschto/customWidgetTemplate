@@ -7,8 +7,13 @@ rap.registerTypeHandler( "rap.myWidget", {
     el.style.top = "0xp";
     el.style.width = "100%";
     el.style.height = "100%";
-    el.style.backgroundColor = "#FF7766";
-    el.innerText = "Hello World!"
+    el.style.backgroundColor = "#FF5555";
+    var text = document.createElement( "div" );
+    text.style.position = "absolute";
+    text.style.left = "40px";
+    text.style.top = "40px";
+    text.style.backgroundColor = "#FFFF00";
+    el.appendChild( text );
     rap.getObject( properties.parent ).append( el );
     return el;
   },
@@ -16,6 +21,16 @@ rap.registerTypeHandler( "rap.myWidget", {
   destructor : function( el ) {
     if( el.parentNode ) {
       el.parentNode.removeChild( el );
+    }
+  },
+
+  properties : [
+    "text"
+  ],
+
+  propertyHandler : {
+    "text" : function( el, text ) {
+      el.firstChild.innerText = text;
     }
   }
 
