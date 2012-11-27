@@ -13,6 +13,10 @@ rap.registerTypeHandler( "rap.myWidget", {
     text.style.left = "40px";
     text.style.top = "40px";
     text.style.backgroundColor = "#FFFF00";
+    text.onmousedown = function( ev ) {
+      var newText = text.innerText + ", " + ev.button;
+      text.innerText = newText;
+    };
     el.appendChild( text );
     rap.getObject( properties.parent ).append( el );
     return el;
