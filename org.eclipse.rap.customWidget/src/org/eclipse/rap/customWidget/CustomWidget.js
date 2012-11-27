@@ -43,12 +43,22 @@ rap.registerTypeHandler( "rap.myWidget", {
   },
 
   listeners : [
-    "Modify"
+    "Modify",
+    "MouseUp"
   ],
 
   listenerHandler : {
     "Modify" : function( el, value ) {
       el._hasModifyListener = value;
+    },
+    "MouseUp" : function( el, value ) {
+      if( value ) {
+        el.onmouseup = function() {
+          rap.getRemoteObject( el ).notify( "MouseUp", { "a" : "b" } );
+        };
+      } else {
+        el.onmousedown = null;
+      }
     }
   }
 

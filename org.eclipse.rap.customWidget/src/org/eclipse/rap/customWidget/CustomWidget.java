@@ -17,7 +17,7 @@ public class CustomWidget extends Composite {
   private RemoteObject ro;
   private String text = "Hello World!";
   private boolean hasModifyListener = false;
-  private boolean hasClick = false;
+  private boolean hasMouseUpListener = false;
 
   public CustomWidget( Composite parent, int style ) {
     super( parent, style );
@@ -32,6 +32,11 @@ public class CustomWidget extends Composite {
           CustomWidget.this.notifyListeners( SWT.Modify, new Event() );
         }
       }
+      public void handleNotify( String event, java.util.Map< String, Object > properties ) {
+        if( event.equals( "MouseUp" ) ) {
+          CustomWidget.this.notifyListeners( SWT.MouseUp, new Event() );
+        }
+      };
     } );
   }
 
@@ -50,11 +55,13 @@ public class CustomWidget extends Composite {
   public void addListener( int eventType, Listener listener ) {
     super.addListener( eventType, listener );
     checkModifyListener();
+    checkMouseListener();
   }
 
   public void removeListener( int eventType, Listener listener ) {
     super.removeListener( eventType, listener );
     checkModifyListener();
+    checkMouseListener();
   }
 
   private void checkModifyListener() {
@@ -65,6 +72,17 @@ public class CustomWidget extends Composite {
     if( hasModifyListener && !isListening( SWT.Modify ) ) {
       ro.listen( "Modify", false );
       hasModifyListener = false;
+    }
+  }
+
+  private void checkMouseListener() {
+    if( !hasMouseUpListener && isListening( SWT.MouseUp ) ) {
+      ro.listen( "MouseUp", true );
+      hasMouseUpListener = true;
+    }
+    if( hasMouseUpListener && !isListening( SWT.MouseUp ) ) {
+      ro.listen( "MouseUp", false );
+      hasMouseUpListener = false;
     }
   }
 

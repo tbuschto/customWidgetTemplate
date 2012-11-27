@@ -56,11 +56,11 @@ public class Demo implements IEntryPoint, ApplicationConfiguration {
       }
     };
 
-    final Button listen = new Button( shell, SWT.CHECK );
-    listen.setText( "listen" );
-    listen.addSelectionListener( new SelectionAdapter() {
+    final Button modify = new Button( shell, SWT.CHECK );
+    modify.setText( "Modify" );
+    modify.addSelectionListener( new SelectionAdapter() {
       public void widgetSelected( SelectionEvent e ) {
-        if( listen.getSelection() ) {
+        if( modify.getSelection() ) {
           widget.addListener( SWT.Modify, modifyListener );
         } else {
           widget.removeListener( SWT.Modify, modifyListener );
@@ -68,7 +68,27 @@ public class Demo implements IEntryPoint, ApplicationConfiguration {
       }
     } );
 
-    shell.setBounds( 50, 50, 300, 300 );
+    final Listener mouseListener = new Listener() {
+      public void handleEvent( Event event ) {
+        MessageBox box = new MessageBox( shell );
+        box.setMessage( "Clicked!" );
+        org.eclipse.rap.rwt.widgets.DialogUtil.open( box, null );
+      }
+    };
+
+    final Button mouseUp = new Button( shell, SWT.CHECK );
+    mouseUp.setText( "MouseUp" );
+    mouseUp.addSelectionListener( new SelectionAdapter() {
+      public void widgetSelected( SelectionEvent e ) {
+        if( mouseUp.getSelection() ) {
+          widget.addListener( SWT.MouseUp, mouseListener );
+        } else {
+          widget.removeListener( SWT.MouseUp, mouseListener );
+        }
+      }
+    } );
+
+    shell.setBounds( 50, 50, 400, 300 );
     shell.open();
     return 0;
   }
