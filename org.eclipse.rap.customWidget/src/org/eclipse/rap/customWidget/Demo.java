@@ -14,6 +14,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -44,16 +46,38 @@ public class Demo implements IEntryPoint, ApplicationConfiguration {
     get.setText( "get" );
     get.addSelectionListener( new SelectionAdapter() {
       public void widgetSelected( SelectionEvent e ) {
-        MessageBox box = new MessageBox( shell );
-        box.setText( "Current text" );
-        box.setMessage( widget.getText() );
-        org.eclipse.rap.rwt.widgets.DialogUtil.open( box, null );
+        showText( widget );
+      }
+    } );
+
+    final Listener modifyListener = new Listener() {
+      public void handleEvent( Event event ) {
+        showText( widget );
+      }
+    };
+
+    final Button listen = new Button( shell, SWT.CHECK );
+    listen.setText( "listen" );
+    listen.addSelectionListener( new SelectionAdapter() {
+      public void widgetSelected( SelectionEvent e ) {
+        if( listen.getSelection() ) {
+          widget.addListener( SWT.Modify, modifyListener );
+        } else {
+          widget.removeListener( SWT.Modify, modifyListener );
+        }
       }
     } );
 
     shell.setBounds( 50, 50, 300, 300 );
     shell.open();
     return 0;
+  }
+
+  private static void showText( final CustomWidget widget ) {
+    MessageBox box = new MessageBox( widget.getShell() );
+    box.setText( "Current text" );
+    box.setMessage( widget.getText() );
+    org.eclipse.rap.rwt.widgets.DialogUtil.open( box, null );
   }
 
   public void configure( Application application ) {

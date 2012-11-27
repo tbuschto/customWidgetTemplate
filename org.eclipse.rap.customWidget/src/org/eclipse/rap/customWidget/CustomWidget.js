@@ -17,6 +17,9 @@ rap.registerTypeHandler( "rap.myWidget", {
       var newText = text.innerText + ", " + ev.button;
       text.innerText = newText;
       rap.getRemoteObject( el ).set( "text", newText );
+      if( el._hasModifyListener ) {
+        rap.getRemoteObject( el ).notify( "Modify", { "a" : "b" } );
+      }
     };
     el.appendChild( text );
     rap.getObject( properties.parent ).append( el );
@@ -36,6 +39,16 @@ rap.registerTypeHandler( "rap.myWidget", {
   propertyHandler : {
     "text" : function( el, text ) {
       el.firstChild.innerText = text;
+    }
+  },
+
+  listeners : [
+    "Modify"
+  ],
+
+  listenerHandler : {
+    "Modify" : function( el, value ) {
+      el._hasModifyListener = value;
     }
   }
 

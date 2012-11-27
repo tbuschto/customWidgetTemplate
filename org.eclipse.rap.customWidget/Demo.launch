@@ -23,7 +23,7 @@
 <stringAttribute key="org.eclipse.rap.launch.dataLocation" value="${workspace_loc}/.metadata/.plugins/org.eclipse.rap.ui.launch/Demo"/>
 <stringAttribute key="org.eclipse.rap.launch.entryPoint" value=""/>
 <stringAttribute key="org.eclipse.rap.launch.libraryVariant" value="STANDARD"/>
-<booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="true"/>
+<booleanAttribute key="org.eclipse.rap.launch.openBrowser" value="false"/>
 <intAttribute key="org.eclipse.rap.launch.port" value="8585"/>
 <stringAttribute key="org.eclipse.rap.launch.servletName" value="custom"/>
 <intAttribute key="org.eclipse.rap.launch.sessionTimeout" value="0"/>
