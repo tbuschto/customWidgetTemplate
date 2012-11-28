@@ -16,8 +16,6 @@ public class CustomWidget extends Composite {
 
   private RemoteObject ro;
   private String text = "Hello World!";
-  private boolean hasModifyListener = false;
-  private boolean hasMouseUpListener = false;
 
   public CustomWidget( Composite parent, int style ) {
     super( parent, style );
@@ -53,36 +51,34 @@ public class CustomWidget extends Composite {
   }
 
   public void addListener( int eventType, Listener listener ) {
+    checkModifyListener( eventType, true );
+    checkMouseListener( eventType, true );
     super.addListener( eventType, listener );
-    checkModifyListener();
-    checkMouseListener();
   }
 
   public void removeListener( int eventType, Listener listener ) {
+    checkModifyListener( eventType, false );
+    checkMouseListener( eventType, true );
     super.removeListener( eventType, listener );
-    checkModifyListener();
-    checkMouseListener();
   }
 
-  private void checkModifyListener() {
-    if( !hasModifyListener && isListening( SWT.Modify ) ) {
-      ro.listen( "Modify", true );
-      hasModifyListener = true;
-    }
-    if( hasModifyListener && !isListening( SWT.Modify ) ) {
-      ro.listen( "Modify", false );
-      hasModifyListener = false;
+  private void checkModifyListener( int eventType, boolean add ) {
+    if( eventType == SWT.Modify ) {
+      if( add && !isListening( SWT.Modify ) ) {
+        ro.listen( "Modify", true );
+      } else if( !add && isListening( SWT.Modify ) ) {
+        ro.listen( "Modify", false );
+      }
     }
   }
 
-  private void checkMouseListener() {
-    if( !hasMouseUpListener && isListening( SWT.MouseUp ) ) {
-      ro.listen( "MouseUp", true );
-      hasMouseUpListener = true;
-    }
-    if( hasMouseUpListener && !isListening( SWT.MouseUp ) ) {
-      ro.listen( "MouseUp", false );
-      hasMouseUpListener = false;
+  private void checkMouseListener( int eventType, boolean add ) {
+    if( eventType == SWT.MouseUp ) {
+      if( add && !isListening( SWT.MouseUp ) ) {
+        ro.listen( "MouseUp", true );
+      } else if( !add && isListening( SWT.MouseUp ) ) {
+        ro.listen( "MouseUp", false );
+      }
     }
   }
 
