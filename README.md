@@ -1,0 +1,1 @@
+Please read the Wiki: https://github.com/tbuschto/customWidgetTemplate/wiki/Custom-Widget-Provisional-Documentation
