@@ -1,10 +1,11 @@
 rap.registerTypeHandler( "rap.myWidget", {
 
   factory : function( properties ) {
+    console.log( 1 );
     var el = document.createElement( "div" );
     el.style.position = "absolute";
-    el.style.left = "0xp";
-    el.style.top = "0xp";
+    el.style.left = "0px";
+    el.style.top = "0px";
     el.style.width = "100%";
     el.style.height = "100%";
     var text = document.createElement( "div" );
@@ -12,7 +13,21 @@ rap.registerTypeHandler( "rap.myWidget", {
     text.style.left = "40px";
     text.style.top = "40px";
     text.style.backgroundColor = "#FFFF00";
+    text.onmouseup = function( ev ) {
+      ev = ev ? ev : window.event; // IE 7
+      if( ev.stopPropagation ) {
+        ev.stopPropagation()
+      } else {
+        ev.cancelBubble = true;
+      };
+    }
     text.onmousedown = function( ev ) {
+      ev = ev ? ev : window.event;
+      if( ev.stopPropagation ) {
+        ev.stopPropagation()
+      } else {
+        ev.cancelBubble = true;
+      };
       var newText = text.innerText + ", " + ev.button;
       text.innerText = newText;
       rap.getRemoteObject( el ).set( "text", newText );
