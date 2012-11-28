@@ -7,7 +7,6 @@ rap.registerTypeHandler( "rap.myWidget", {
     el.style.top = "0xp";
     el.style.width = "100%";
     el.style.height = "100%";
-    el.style.backgroundColor = "#FF5555";
     var text = document.createElement( "div" );
     text.style.position = "absolute";
     text.style.left = "40px";

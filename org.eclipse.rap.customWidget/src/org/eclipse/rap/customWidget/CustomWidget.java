@@ -7,6 +7,7 @@ import org.eclipse.rap.rwt.internal.remote.RemoteObjectFactory;
 import org.eclipse.rap.rwt.internal.remote.RemoteOperationHandler;
 import org.eclipse.rap.rwt.lifecycle.WidgetUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -36,6 +37,7 @@ public class CustomWidget extends Composite {
         }
       };
     } );
+    this.setBackground( new Color( getDisplay(), 255, 100, 50 ) );
   }
 
   public String getText() {
