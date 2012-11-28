@@ -21,7 +21,7 @@ public class CustomWidget extends Composite {
 
   public CustomWidget( Composite parent, int style ) {
     super( parent, style );
-    ro = RemoteObjectFactory.createRemoteObject( "rap.myWidget" );
+    ro = RemoteObjectFactory.getInstance().createRemoteObject( "rap.myWidget" );
     ro.set( "parent", WidgetUtil.getId( this ) );
     ro.set( "text", text );
     ro.setHandler( new RemoteOperationHandler(){
